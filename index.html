@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Project Panda 🐼</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link rel="preconnect"
+       href="https://fonts.gstatic.com"
+       crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&display=swap"
+       rel="stylesheet">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <link rel="stylesheet" href="css/responsive.css">
+
+</head>
+
+<body>
+
+    <!-- Scene 1 -->
+   <section id="scene1" class="scene">
+
+    <!-- Background -->
+    <div class="background">
+
+        <img src="assets/images/background/background.png"
+             class="background-image">
+
+        <img src="assets/images/background/moon.png"
+             class="moon">
+
+        <img src="assets/images/background/cloud1.png"
+             class="cloud cloud1">
+
+        <img src="assets/images/background/cloud2.png"
+             class="cloud cloud2">
+
+        <img src="assets/images/background/cloud3.png"
+             class="cloud cloud3">
+
+        <!-- Stars will be generated here -->
+        <div id="stars"></div>
+
+    </div>
+
+   <!-- Character -->
+
+<div class="character">
+
+    <img
+        src="assets/images/cat/sleeping-cat.png"
+        class="sleeping-cat"
+        alt="Sleeping Cat">
+
+    <div id="fireflies"></div>
+
+</div>
+
+<div id="magicBurst"></div>
+
+<div class="intro-text">
+
+    <p id="dialogueText"></p>
+
+</div>
+
+<!-- Button -->
+
+<div class="intro">
+
+    <button id="startButton">
+        
+        <div class="button-glow"></div>
+
+        <img
+            src="assets/images/ui/button.png"
+            class="button-image"
+            alt="Button">
+
+        <span>Start Adventure</span>
+
+    </button>
+
+</div>
+
+</section>
+
+    <script src="js/script.js"></script>
+    <script src="js/animations.js"></script>
+    <script src="js/scenes.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,405 @@
+/* ==========================================
+            SMALL STARS
+========================================== */
+
+@keyframes twinkleSlow{
+
+    0%,100%{
+
+        opacity:.25;
+
+        transform:scale(.8);
+
+    }
+
+    50%{
+
+        opacity:.8;
+
+        transform:scale(1);
+
+    }
+
+}
+
+/* ==========================================
+            MEDIUM STARS
+========================================== */
+
+@keyframes twinkleMedium{
+
+    0%,100%{
+
+        opacity:.3;
+
+        transform:scale(.9);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.25);
+
+    }
+
+}
+
+/* ==========================================
+            HERO STARS
+========================================== */
+
+@keyframes twinkleBig{
+
+    0%,100%{
+
+        opacity:.4;
+
+        transform:scale(.9) rotate(0deg);
+
+    }
+
+    50%{
+
+        opacity:1;
+
+        transform:scale(1.4) rotate(20deg);
+
+    }
+
+}
+
+/* ==========================================
+            MOON FLOAT
+========================================== */
+
+@keyframes moonFloat{
+
+    0%,100%{
+
+        transform:translateY(0px);
+
+    }
+
+    50%{
+
+        transform:translateY(-10px);
+
+    }
+
+}
+
+@keyframes moonGlow{
+
+    0%,100%{
+
+        filter:
+        drop-shadow(0 0 12px rgba(255,245,200,.35));
+
+    }
+
+    50%{
+
+        filter:
+        drop-shadow(0 0 24px rgba(255,245,200,.75));
+
+    }
+
+}
+
+@keyframes cloudLeft{
+
+    0%{
+
+        transform:translate(0,0);
+
+    }
+
+    50%{
+
+        transform:translate(12px,-2px);
+
+    }
+
+    100%{
+
+        transform:translate(25px,0);
+
+    }
+
+}
+
+@keyframes cloudRight{
+
+    0%{
+
+        transform:translate(0,0);
+
+    }
+
+    50%{
+
+        transform:translate(-10px,2px);
+
+    }
+
+    100%{
+
+        transform:translate(-20px,0);
+
+    }
+
+}
+
+/* ==========================================
+            CAT BREATHING
+========================================== */
+
+@keyframes breathe{
+
+    0%,100%{
+
+        transform:
+            translateX(-50%)
+            translateY(0)
+            rotate(-0.3deg)
+            scale(1);
+
+    }
+
+    50%{
+
+        transform:
+            translateX(-50%)
+            translateY(-4px)
+            rotate(0.3deg)
+            scale(1.02);
+
+    }
+
+}
+
+/* ==========================================
+        DIALOGUE ENTRANCE
+========================================== */
+
+@keyframes introTextAppear{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translateX(-50%)
+            translateY(20px);
+
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:
+            translateX(-50%)
+            translateY(0);
+
+    }
+
+}
+
+@keyframes magicGlow{
+
+    0%{
+
+        text-shadow:
+
+            0 0 6px rgba(255,235,170,.15);
+
+    }
+
+    50%{
+
+        text-shadow:
+
+            0 0 18px rgba(255,235,170,.45),
+
+            0 0 36px rgba(255,215,120,.25);
+
+    }
+
+    100%{
+
+        text-shadow:
+
+            0 0 10px rgba(255,235,170,.25);
+
+    }
+
+}
+
+.fadeOut{
+
+    animation:
+
+        sentenceFade
+
+        .9s
+
+        ease
+
+        forwards;
+
+}
+
+.magic-letter{
+
+    display:inline-block;
+
+    will-change:transform,opacity;
+
+    opacity:0;
+
+    transform:
+
+        translateY(12px)
+
+        scale(.85);
+
+    animation:
+
+        letterReveal .45s ease forwards;
+
+}
+
+@keyframes letterReveal{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+
+            translateY(8px)
+
+            scale(.9);
+
+        filter:blur(5px);
+
+    }
+
+    60%{
+
+        opacity:1;
+
+        transform:
+
+            translateY(-2px)
+
+            scale(1.08);
+
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:
+
+            translateY(0)
+
+            scale(1);
+
+        filter:blur(0);
+
+    }
+
+}
+
+@keyframes sentenceFade{
+
+    0%{
+
+        opacity:1;
+
+        transform:
+
+            translateY(0);
+
+        filter:
+
+            blur(0);
+
+    }
+
+    70%{
+
+        opacity:.6;
+
+        transform:
+
+            translateY(-6px);
+
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:
+
+            translateY(-12px);
+
+        filter:
+
+            blur(6px);
+
+    }
+
+}
+
+@keyframes moonBlessing{
+
+    0%{
+
+        filter:
+            drop-shadow(0 0 18px rgba(255,245,200,.45));
+
+    }
+
+    100%{
+
+        filter:
+            drop-shadow(0 0 45px rgba(255,245,200,.95))
+            drop-shadow(0 0 80px rgba(255,230,150,.45));
+
+    }
+
+}
+
+@keyframes buttonPulse{
+
+    0%,
+    100%{
+
+        transform:
+            translateY(0)
+            scale(1);
+
+        filter:
+            drop-shadow(0 0 8px rgba(255,220,120,.25));
+
+    }
+
+    50%{
+
+        transform:
+            translateY(-2px)
+            scale(1.04);
+
+        filter:
+            drop-shadow(0 0 20px rgba(255,220,120,.65));
+
+    }
+
+}
