@@ -560,7 +560,6 @@ body{
 /* ==========================================
             PANDA DIALOGUE
 ========================================== */
-
 .panda-dialogue {
 
     position: absolute;
@@ -572,33 +571,44 @@ body{
         translateX(-50%)
         translateY(20px);
 
-    width: min(82%, 500px);
+    width: min(82%, 520px);
 
-    padding: 32px 38px;
+    padding: 34px 40px;
 
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    gap: 22px;
 
-    background: rgba(255, 255, 255, 0.14);
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,250,235,.24),
+            rgba(255,247,225,.12)
+        );
 
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
 
-    border: 2px solid rgba(255, 235, 180, 0.25);
+    border:1.5px solid rgba(255,245,210,.32);
 
-    border-radius: 28px;
+    border-radius:30px;
 
     box-shadow:
-        0 12px 35px rgba(0, 0, 0, 0.25),
-        0 0 18px rgba(255, 220, 120, 0.08);
 
-    opacity: 0;
+        0 18px 40px rgba(0,0,0,.28),
 
-    pointer-events: none;
+        0 0 28px rgba(255,228,150,.12),
 
-    z-index: 30;
+        inset 0 1px 0 rgba(255,255,255,.35);
+
+    overflow:hidden;
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:30;
 
     transition:
         opacity .6s ease,
@@ -606,9 +616,74 @@ body{
 
 }
 
+.panda-dialogue::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    border-radius:inherit;
+
+    background:
+    linear-gradient(
+    115deg,
+
+    transparent 30%,
+
+    rgba(255,255,255,.05) 44%,
+
+    rgba(255,255,255,.14) 50%,
+
+    rgba(255,255,255,.05) 56%,
+
+    transparent 70%
+);
+    
+    filter:blur(10px);
+
+    transform:translateX(-180%);
+
+    animation:none;
+
+    pointer-events:none;
+
+}
+
+.panda-dialogue::after{
+
+    content:"";
+
+    position:absolute;
+
+    inset:-35px;
+
+    border-radius:40px;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,230,150,.14),
+
+            transparent 70%
+
+        );
+
+    filter:blur(22px);
+
+    z-index:-1;
+
+    animation:dialogueGlow 5s ease-in-out infinite;
+
+}
+
 .panda-dialogue.show {
 
-    opacity: 1;
+    opacity: .90;
 
     pointer-events: auto;
 
@@ -622,26 +697,36 @@ body{
 
     margin: 0;
 
-    color: #FFFDF5;
+    color: #FFFEF9;
 
     font-family: "Cormorant Garamond", serif;
 
-    font-size: clamp(1.4rem, 2vw, 2rem);
+    font-size:clamp(1.45rem,2vw,2.1rem);
 
-    font-weight: 500;
+    font-weight:500;
 
-    line-height: 1.7;
+    line-height:1.75;
 
-    letter-spacing: .4px;
-
-    text-align: center;
+    letter-spacing:.35px;
 
     text-shadow:
-        0 2px 8px rgba(0,0,0,.35);
+
+    0 2px 10px rgba(0,0,0,.45),
+
+    0 0 8px rgba(255,245,200,.08);
 
 }
 
+.speak{
+    animation:
+        pandaSpeak 420ms cubic-bezier(.22,1,.36,1);
+}
+
 #friendButton {
+
+    position:relative;
+
+    overflow:hidden;
 
     align-self: center;
 
@@ -649,15 +734,16 @@ body{
 
     padding: 14px 32px;
 
-    border: none;
+    background:
+        linear-gradient(
+            180deg,
+            rgba(255,244,190,.92),
+            rgba(245,205,110,.82)
+        );
 
-    border-radius: 999px;
+    border:1px solid rgba(255,255,255,.45);
 
-    background: linear-gradient(
-        135deg,
-        #FFE48C,
-        #F6C55A
-    );
+    backdrop-filter:blur(10px);
 
     color: #4B3200;
 
@@ -667,24 +753,73 @@ body{
 
     cursor: pointer;
 
+    animation: buttonGlow 4s ease-in-out infinite;
+
     box-shadow:
-        0 0 25px rgba(255,215,120,.45);
+
+    0 12px 30px rgba(0,0,0,.25),
+
+    0 0 22px rgba(255,220,120,.22),
+
+    inset 0 1px 0 rgba(255,255,255,.55);
 
     transition:
-        transform .25s ease,
-        filter .25s ease,
-        box-shadow .25s ease;
+
+     transform .45s cubic-bezier(.22,1,.36,1),
+
+     box-shadow .45s,
+
+     filter .45s;
+
+    font-family: "Cormorant Garamond", serif;
+    font-size: 1.15rem;
+    letter-spacing: .4px;
+
+}
+
+#friendButton::before{
+
+    content:"";
+
+    position:absolute;
+
+    inset:0;
+
+    background:
+    linear-gradient(
+
+        115deg,
+
+        transparent 25%,
+
+        rgba(255,255,255,.5) 50%,
+
+        transparent 75%
+
+    );
+
+    transform:translateX(-220%);
 
 }
 
 #friendButton:hover {
 
-    transform: scale(1.05);
+    transform:
+      translateY(-3px)
+      scale(1.02);
 
     filter: brightness(1.08);
 
     box-shadow:
         0 0 35px rgba(255,215,120,.6);
+
+}
+
+#friendButton:hover::before{
+
+    animation:
+    buttonShine
+    .8s ease;
 
 }
 
@@ -695,3 +830,6 @@ body{
 
 }
 
+.shine::before{
+    animation:glassShine 1.2s ease forwards;
+}

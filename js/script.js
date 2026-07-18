@@ -2,6 +2,11 @@
             PROJECT PANDA
 ========================================== */
 
+const panda = document.getElementById("panda");
+
+const OPEN_EYES = "assets/standing.png";
+const CLOSED_EYES = "assets/standing-blink.png";
+
 let gatherFireflies = false;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -10,11 +15,19 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createFireflies();
 
-    showIntroText();
+   /* showIntroText();
 
     const button = document.getElementById("startButton");
 
-    button.addEventListener("click", transitionToScene2);
+    button.addEventListener("click", transitionToScene2); */
+
+    document.getElementById("scene1").classList.add("hidden");
+
+    const scene2 = document.getElementById("scene2");
+    scene2.classList.remove("hidden");
+    scene2.style.opacity = "1";
+
+    startPandaIntro();
 
 });
 
@@ -217,23 +230,44 @@ async function startDialogue() {
 
     for (let i = 0; i < pandaLines.length; i++) {
 
+        const dialogue = document.getElementById("dialogue");
+
+        // restart animation
+        dialogue.classList.remove("bubblePulse");
+        void dialogue.offsetWidth;
+        dialogue.classList.add("bubblePulse")
+
+        dialogue.classList.remove("shine");
+        void dialogue.offsetWidth;
+        dialogue.classList.add("shine");
+
         text.textContent = pandaLines[i];
+
+        panda.classList.remove("speak");
+        void panda.offsetWidth;
+        panda.classList.add("speak");
+
+        text.classList.remove("dialogueFadeIn");
+        void text.offsetWidth;
+        text.classList.add("dialogueFadeIn");
 
         if (i !== pandaLines.length - 1) {
 
             await wait(3000);
 
-            text.classList.add("fadeOut");
+           text.classList.remove("dialogueFadeIn");
 
-            await wait(700);
+           text.classList.add("dialogueFadeOut");
 
-            text.classList.remove("fadeOut");
+           await wait(150);
 
-            text.style.opacity = "1";
+           text.textContent = "";
 
-            text.replaceChildren();
+           await wait(60);
 
-            await wait(300);
+           text.classList.remove("dialogueFadeOut");
+
+            await wait(120);
         }
     }
 }
@@ -563,38 +597,40 @@ async function startPandaIntro() {
 
     // Panda entrance
     const animation = panda.animate(
-        [
-            {
-                opacity: 0,
-                transform: "translateY(60px) scale(0.82)",
-                filter: "blur(4px)"
-            },
+[
+    {
+        transform: "translateY(0) scale(1) rotate(0deg)"
+    },
+    {
+        transform: "translateY(-3px) scale(1.012) rotate(-0.3deg)",
+        offset: 0.5
+    },
+    {
+        transform: "translateY(0) scale(1) rotate(0deg)"
+    }
+],
+{
+    duration: 420,
+    easing: "cubic-bezier(.22,1,.36,1)"
+});
 
-            {
-                opacity: 1,
-                transform: "translateY(-12px) scale(1.06)",
-                filter: "blur(0px)",
-                offset: 0.75
-            },
+await animation.finished;
 
-            {
-                opacity: 1,
-                transform: "translateY(0) scale(1)",
-                filter: "blur(0px)"
-            }
-        ],
-        {
-            duration: 1200,
-            easing: "cubic-bezier(.22,1,.36,1)",
-            fill: "forwards"
-        }
-    );
-    await animation.finished;
+// Freeze the final state manually
+panda.style.opacity = "1";
+panda.style.transform = "translateY(0) scale(1)";
+panda.style.filter = "blur(0px)";
 
-    // Panda settles
-    await wait(150);
+// Remove the WAAPI animation completely
+animation.cancel();
 
-    panda.style.animation = "pandaIdle 5.2s ease-in-out infinite";
+// Force the browser to recalculate styles
+void panda.offsetWidth;
+
+// Now start the CSS animations
+panda.style.animation =
+    "pandaIdle 7.5s cubic-bezier(.42,0,.58,1) infinite, " +
+    "pandaGlow 7.5s ease-in-out infinite";
 
     // Dialogue bubble appears
     dialogue.classList.add("show");
