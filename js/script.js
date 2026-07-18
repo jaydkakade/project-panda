@@ -12,6 +12,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     showIntroText();
 
+    const button = document.getElementById("startButton");
+
+    button.addEventListener("click", transitionToScene2);
+
 });
 
 /* ==========================================
@@ -196,6 +200,42 @@ function wait(ms){
 
     return new Promise(resolve=>setTimeout(resolve,ms));
 
+}
+
+const pandaLines = [
+    "There you are...",
+    "I was wondering when you'd finally arrive.",
+    "I've been keeping something special just for today...",
+    "But before we begin..."
+];
+
+async function startDialogue() {
+
+    const text = document.getElementById("pandaText");
+
+    text.replaceChildren();
+
+    for (let i = 0; i < pandaLines.length; i++) {
+
+        text.textContent = pandaLines[i];
+
+        if (i !== pandaLines.length - 1) {
+
+            await wait(3000);
+
+            text.classList.add("fadeOut");
+
+            await wait(700);
+
+            text.classList.remove("fadeOut");
+
+            text.style.opacity = "1";
+
+            text.replaceChildren();
+
+            await wait(300);
+        }
+    }
 }
 
 /* ==========================================
@@ -488,3 +528,111 @@ function playMagicBurst(){
     }
 
 }
+
+
+async function transitionToScene2(){
+
+    const scene1 = document.getElementById("scene1");
+    const scene2 = document.getElementById("scene2");
+
+    scene1.style.transition = "opacity .8s ease";
+
+    scene1.style.opacity = "0";
+
+    await wait(800);
+
+    scene1.classList.add("hidden");
+
+    scene2.classList.remove("hidden");
+
+    scene2.style.opacity = "1";
+
+    requestAnimationFrame(() => {
+
+        startPandaIntro();
+
+});
+
+}
+
+async function startPandaIntro() {
+
+    const panda = document.getElementById("panda");
+
+    const dialogue = document.getElementById("dialogue");
+
+    // Panda entrance
+    const animation = panda.animate(
+        [
+            {
+                opacity: 0,
+                transform: "translateY(60px) scale(0.82)",
+                filter: "blur(4px)"
+            },
+
+            {
+                opacity: 1,
+                transform: "translateY(-12px) scale(1.06)",
+                filter: "blur(0px)",
+                offset: 0.75
+            },
+
+            {
+                opacity: 1,
+                transform: "translateY(0) scale(1)",
+                filter: "blur(0px)"
+            }
+        ],
+        {
+            duration: 1200,
+            easing: "cubic-bezier(.22,1,.36,1)",
+            fill: "forwards"
+        }
+    );
+    await animation.finished;
+
+    // Panda settles
+    await wait(150);
+
+    panda.style.animation = "pandaIdle 5.2s ease-in-out infinite";
+
+    // Dialogue bubble appears
+    dialogue.classList.add("show");
+
+    // Let the bubble finish appearing
+    await wait(600);
+
+    // Start typing
+    await startDialogue();
+
+    await wait(1500);
+
+    showFriendButton();
+}
+
+function showFriendButton() {
+
+    const button = document.getElementById("friendButton");
+
+    button.classList.remove("hidden");
+
+    button.animate(
+        [
+            {
+                opacity: 0,
+                transform: "translateY(20px) scale(.9)"
+            },
+            {
+                opacity: 1,
+                transform: "translateY(0) scale(1)"
+            }
+        ],
+        {
+            duration: 600,
+            easing: "ease-out",
+            fill: "forwards"
+        }
+    );
+
+}
+
