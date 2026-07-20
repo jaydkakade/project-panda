@@ -1618,6 +1618,8 @@ body{
 
     font-weight:600;
 
+    opacity: 0;
+
     letter-spacing:1px;
 
     text-shadow:
@@ -1663,21 +1665,6 @@ body{
 .footer-name{
 
     color:#FFD870;
-
-}
-/* ==========================================================
-                    CONFETTI
-========================================================== */
-
-#confettiCanvas{
-
-    position:absolute;
-
-    inset:0;
-
-    pointer-events:none;
-
-    z-index:60;
 
 }
 
@@ -1751,96 +1738,159 @@ body{
     }
 
 }
+
 /* ==========================================
-                BALLOONS
+            CONFETTI CANVAS
 ========================================== */
 
-.balloon{
+#confettiCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    pointer-events:none;
+
+    z-index:100;
+
+}
+
+/* ==========================================
+            PARTY POPPERS
+========================================== */
+
+#leftPopper,
+#rightPopper{
+
+    position:absolute;
 
     width:180px;
 
-    position:absolute;
+    bottom:-220px;
 
-    z-index:25;
+    z-index:35;
 
     pointer-events:none;
 
-    animation:balloonFloat 6s ease-in-out infinite;
+    transform-origin:center center;
 
 }
 
-.balloon-left{
+#leftPopper{
 
-    top:50px;
+    left:60px;
 
-    left:25px;
+    transform: rotate(30deg);
 
 }
 
-.balloon-right{
+#rightPopper{
 
-    top:50px;
+    right:60px;
 
-    right:25px;
+    transform: rotate(-30deg);
 
 }
 
 /* ==========================================
-                SPARKLES
+            MAGIC SPARKLE
 ========================================== */
 
-.sparkles{
+.magic-sparkle{
 
-    position:absolute;
+    position:fixed;
 
-    width:70px;
+    width:14px;
 
-    z-index:18;
+    height:14px;
 
     pointer-events:none;
 
-    animation:sparkleFloat 4s ease-in-out infinite;
+    z-index:9999;
 
-    filter:
+    transform:translate(-50%,-50%) scale(0);
 
-        drop-shadow(0 0 12px rgba(255,230,120,.55));
-
-}
-
-.sparkle1{
-
-    top:140px;
-
-    left:28%;
+    animation:sparkleTwinkle .55s ease-out forwards;
 
 }
 
-.sparkle2{
+.magic-sparkle{
 
-    top:250px;
+    position:fixed;
 
-    right:25%;
+    width:16px;
 
-    animation-delay:1s;
+    height:16px;
+
+    pointer-events:none;
+
+    z-index:9999;
+
+    transform:translate(-50%,-50%) scale(0);
+
+    animation:sparkleTwinkle .6s ease-out forwards;
+}
+
+.magic-sparkle::before,
+.magic-sparkle::after{
+
+    content:"";
+
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    width:3px;
+    height:16px;
+
+    background:white;
+
+    border-radius:20px;
+
+    transform:translate(-50%,-50%);
+
+    box-shadow:
+        0 0 6px white,
+        0 0 12px gold;
+}
+
+.magic-sparkle::after{
+
+    transform:
+        translate(-50%,-50%)
+        rotate(90deg);
 
 }
 
-.sparkle3{
+@keyframes sparkleTwinkle{
 
-    top:520px;
+    0%{
 
-    left:32%;
+        opacity:0;
 
-    animation-delay:2s;
+        transform:translate(-50%,-50%) scale(.2);
 
-}
+    }
 
-.sparkle4{
+    40%{
 
-    top:500px;
+        opacity:1;
 
-    right:30%;
+        transform:translate(-50%,-50%) scale(1.2);
 
-    animation-delay:3s;
+    }
+
+    100%{
+
+        opacity:0;
+
+        transform:translate(-50%,-50%) scale(.5);
+
+    }
 
 }

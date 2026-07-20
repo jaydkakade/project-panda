@@ -265,6 +265,121 @@ async function startDialogue() {
 }
 
 /* ==========================================
+        CONFETTI VARIABLES
+========================================== */
+
+const confettiCanvas =
+    document.getElementById("confettiCanvas");
+
+const confettiCtx =
+    confettiCanvas.getContext("2d");
+
+let confettiPieces = [];
+
+function resizeConfettiCanvas(){
+
+    confettiCanvas.width =
+        window.innerWidth;
+
+    confettiCanvas.height =
+        window.innerHeight;
+
+}
+
+resizeConfettiCanvas();
+
+window.addEventListener(
+    "resize",
+    resizeConfettiCanvas
+);
+
+/* ==========================================
+            CONFETTI PARTICLE
+========================================== */
+
+class Confetti{
+
+    constructor(x,y,vx,vy,color){
+
+        this.x = x;
+
+        this.y = y;
+
+        this.vx = vx;
+
+        this.vy = vy;
+
+        this.size =
+            5 + Math.random()*5;
+
+        this.rotation =
+            Math.random()*360;
+
+        this.rotationSpeed =
+            -10 + Math.random()*20;
+
+        this.gravity = 0.18;
+
+        this.life = 150;
+
+        this.color = color;
+
+    }
+
+    update(){
+
+        this.x += this.vx;
+
+        this.y += this.vy;
+
+        this.vy += this.gravity;
+
+        this.rotation +=
+            this.rotationSpeed;
+
+        this.life--;
+
+    }
+
+    draw(){
+
+        confettiCtx.save();
+
+        confettiCtx.translate(
+            this.x,
+            this.y
+        );
+
+        confettiCtx.rotate(
+            this.rotation *
+            Math.PI/180
+        );
+
+        confettiCtx.globalAlpha =
+            this.life/150;
+
+        confettiCtx.fillStyle =
+            this.color;
+
+        confettiCtx.fillRect(
+
+            -this.size/2,
+
+            -this.size/2,
+
+            this.size,
+
+            this.size*0.6
+
+        );
+
+        confettiCtx.restore();
+
+    }
+
+}
+
+/* ==========================================
             STAR SYSTEM
 ========================================== */
 
@@ -1385,18 +1500,23 @@ await wait(900);
 
     );
 
+    setTimeout(()=>{
+
+    firePartyPoppers();
+
+},1000);
 
     /* ===================================================
                     CONFETTI
     =================================================== */
 
-    //startConfetti();
+   // startConfetti();
 
 }
 
 
 
-const DEV_MODE = false;
+const DEV_MODE = true;
 
 if (DEV_MODE) {
 
@@ -1405,5 +1525,558 @@ if (DEV_MODE) {
     document.getElementById("scene3").classList.add("hidden");
 
     showScene4();
+
+}
+
+/* ==========================================
+            CONFETTI SYSTEM
+========================================== */
+
+function startConfetti(){
+
+    const canvas = document.getElementById("confettiCanvas");
+
+    if(!canvas) return;
+
+    const ctx = canvas.getContext("2d");
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    const colors = [
+        "#FFD93D",
+        "#FF6B6B",
+        "#6BCB77",
+        "#4D96FF",
+        "#FFFFFF",
+        "#FF9F1C"
+    ];
+
+    const confetti = [];
+
+    for(let i = 0; i < 180; i++){
+
+        confetti.push({
+
+            x: Math.random() * canvas.width,
+
+            y: Math.random() * -canvas.height,
+
+            size: 5 + Math.random() * 8,
+
+            speed: 2 + Math.random() * 4,
+
+            drift: -1 + Math.random() * 2,
+
+            rotation: Math.random() * 360,
+
+            rotateSpeed: -4 + Math.random() * 8,
+
+            color: colors[
+                Math.floor(Math.random() * colors.length)
+            ]
+
+        });
+
+    }
+
+    function animate(){
+
+        ctx.clearRect(
+            0,
+            0,
+            canvas.width,
+            canvas.height
+        );
+
+        confetti.forEach(piece=>{
+
+            piece.y += piece.speed;
+
+            piece.x += piece.drift;
+
+            piece.rotation += piece.rotateSpeed;
+
+            if(piece.y > canvas.height){
+
+                piece.y = -20;
+
+                piece.x = Math.random() * canvas.width;
+
+            }
+
+            ctx.save();
+
+            ctx.translate(piece.x,piece.y);
+
+            ctx.rotate(piece.rotation*Math.PI/180);
+
+            ctx.fillStyle = piece.color;
+
+            ctx.fillRect(
+                -piece.size/2,
+                -piece.size/2,
+                piece.size,
+                piece.size*0.6
+            );
+
+            ctx.restore();
+
+        });
+
+        requestAnimationFrame(animate);
+
+    }
+
+    animate();
+
+    window.addEventListener("resize",()=>{
+
+        canvas.width = window.innerWidth;
+
+        canvas.height = window.innerHeight;
+
+    });
+
+}
+
+/* ==========================================
+        PARTY POPPER RECOIL
+========================================== */
+
+function firePartyPoppers(){
+
+    const left =
+        document.getElementById("leftPopper");
+
+    const right =
+        document.getElementById("rightPopper");
+
+    //----------------------------------
+    // Slide Up
+    //----------------------------------
+
+    left.animate(
+
+        [
+
+            {
+
+                bottom:"-220px",
+
+                transform:"rotate(60deg)"
+
+            },
+
+            {
+
+                bottom:"35px",
+
+                transform:"rotate(45deg)"
+
+            }
+
+        ],
+
+        {
+
+            duration:450,
+
+            easing:"ease-out",
+
+            fill:"forwards"
+
+        }
+
+    );
+
+    right.animate(
+
+        [
+
+            {
+
+                bottom:"-220px",
+
+                transform:"rotate(-60deg)"
+
+            },
+
+            {
+
+                bottom:"35px",
+
+                transform:"rotate(-45deg)"
+
+            }
+
+        ],
+
+        {
+
+            duration:450,
+
+            easing:"ease-out",
+
+            fill:"forwards"
+
+        }
+
+    );
+
+    //----------------------------------
+    // POP!!
+    //----------------------------------
+
+    setTimeout(()=>{
+
+        const left =
+    document.getElementById("leftPopper");
+
+const right =
+    document.getElementById("rightPopper");
+
+const leftRect =
+    left.getBoundingClientRect();
+
+const rightRect =
+    right.getBoundingClientRect();
+
+burstConfetti(
+
+    leftRect.left + leftRect.width*0.96,
+
+    leftRect.top + leftRect.height*0.20,
+
+    "left"
+
+);
+
+burstConfetti(
+
+    rightRect.left + rightRect.width*0.04,
+
+    rightRect.top + rightRect.height*0.20,
+
+    "right"
+
+);
+
+burstSparkles(
+    leftRect.left + leftRect.width*0.96,
+    leftRect.top + leftRect.height*0.20
+);
+
+burstSparkles(
+    rightRect.left + rightRect.width*0.04,
+    rightRect.top + rightRect.height*0.20
+);
+
+        left.animate(
+
+            [
+
+                {
+
+                    transform:"rotate(-28deg)"
+
+                },
+
+                {
+
+                    transform:"rotate(-42deg)"
+
+                },
+
+                {
+
+                    transform:"rotate(-18deg)"
+
+                },
+
+                {
+
+                    transform:"rotate(-28deg)"
+
+                }
+
+            ],
+
+            {
+
+                duration:220
+
+            }
+
+        );
+
+        right.animate(
+
+            [
+
+                {
+
+                    transform:"rotate(28deg)"
+
+                },
+
+                {
+
+                    transform:"rotate(42deg)"
+
+                },
+
+                {
+
+                    transform:"rotate(18deg)"
+
+                },
+
+                {
+
+                    transform:"rotate(28deg)"
+
+                }
+
+            ],
+
+            {
+
+                duration:220
+
+            }
+
+        );
+
+    },450);
+
+    //----------------------------------
+    // Hide Again
+    //----------------------------------
+
+    setTimeout(()=>{
+
+        left.animate(
+
+            [
+
+                {
+
+                    bottom:"35px"
+
+                },
+
+                {
+
+                    bottom:"-220px"
+
+                }
+
+            ],
+
+            {
+
+                duration:450,
+
+                easing:"ease-in",
+
+                fill:"forwards"
+
+            }
+
+        );
+
+        right.animate(
+
+            [
+
+                {
+
+                    bottom:"35px"
+
+                },
+
+                {
+
+                    bottom:"-220px"
+
+                }
+
+            ],
+
+            {
+
+                duration:450,
+
+                easing:"ease-in",
+
+                fill:"forwards"
+
+            }
+
+        );
+
+    },1000);
+
+}
+
+/* ==========================================
+            CONFETTI LOOP
+========================================== */
+
+function animateConfetti(){
+
+    confettiCtx.clearRect(
+
+        0,
+
+        0,
+
+        confettiCanvas.width,
+
+        confettiCanvas.height
+
+    );
+
+    confettiPieces =
+
+        confettiPieces.filter(
+
+            piece => piece.life > 0
+
+        );
+
+    confettiPieces.forEach(piece=>{
+
+        piece.update();
+
+        piece.draw();
+
+    });
+
+    requestAnimationFrame(
+
+        animateConfetti
+
+    );
+
+}
+
+animateConfetti();
+
+/* ==========================================
+            BURST CONFETTI
+========================================== */
+
+function burstConfetti(x, y, side){
+
+    const colors = [
+
+        "#FFD93D",   // Yellow
+
+        "#FF4D6D",   // Pink
+
+        "#4D96FF",   // Blue
+
+        "#6BCB77",   // Green
+
+        "#FFFFFF"    // White
+
+    ];
+
+    const count = 75;
+
+    for(let i=0;i<count;i++){
+
+        let angle;
+       if(side==="left"){
+
+       angle =
+        (40 + Math.random()*30)
+        * Math.PI/180;
+
+      }else{
+
+    angle =
+        (130 + Math.random()*30)
+        * Math.PI/180;
+
+}
+
+        const speed =
+            8 + Math.random()*6;
+
+        const vx =
+            Math.cos(angle)*speed;
+
+        const vy =
+            -Math.sin(angle)*speed;
+
+        const color =
+            colors[
+                Math.floor(
+                    Math.random()*colors.length
+                )
+            ];
+
+        confettiPieces.push(
+
+            new Confetti(
+
+                x,
+
+                y,
+
+                vx,
+
+                vy,
+
+                color
+
+            )
+
+        );
+
+    }
+
+}
+
+/* ==========================================
+            MAGIC SPARKLES
+========================================== */
+
+function burstSparkles(x,y){
+
+    const count = 8;
+
+    for(let i=0;i<count;i++){
+
+        const sparkle =
+            document.createElement("div");
+
+        sparkle.className =
+            "magic-sparkle";
+
+       const spreadX = (Math.random() - 0.5) * 200;
+       const spreadY = Math.random() * 400;
+
+       sparkle.style.left = (x + spreadX) + "px";
+
+       sparkle.style.top = (y - spreadY) + "px";
+
+        sparkle.style.animationDelay =
+            (Math.random()*0.15) + "s";
+
+        document.body.appendChild(
+            sparkle
+        );
+
+        setTimeout(()=>{
+
+            sparkle.remove();
+
+        },700);
+
+    }
 
 }
