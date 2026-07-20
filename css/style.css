@@ -833,3 +833,1014 @@ body{
 .shine::before{
     animation:glassShine 1.2s ease forwards;
 }
+
+#scene3{
+
+    position:relative;
+
+    width:100%;
+
+    height:100vh;
+
+    overflow:hidden;
+
+}
+
+.scene3-bg{
+
+    position:absolute;
+
+    inset:0;
+
+}
+
+.scene3-background{
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:cover;
+
+}
+
+.friendship-panda{
+
+    position:absolute;
+
+    left:-120px;
+
+    bottom:0;
+
+    z-index:5;
+
+}
+
+.friendship-panda img{
+
+    height:92vh;
+
+    width:auto;
+
+}
+
+.friendship-ui{
+
+    position:absolute;
+
+    right:7%;
+
+    top:8%;
+
+    width:39%;
+
+    z-index:10;
+
+}
+
+.friendship-header{
+
+    margin-bottom:18px;
+
+}
+
+.friendship-header h1{
+
+    color:#FFF4CF;
+
+    font-size:3rem;
+
+    font-family:"Cormorant Garamond",serif;
+
+    text-align:center;
+
+}
+
+.friendship-divider{
+
+    display:flex;
+
+    align-items:center;
+
+    gap:18px;
+
+    color:#FFD98A;
+
+    margin-top:10px;
+
+}
+
+.friendship-divider span{
+
+    flex:1;
+
+    height:2px;
+
+    background:
+
+        rgba(255,220,120,.45);
+
+}
+
+#questionText{
+
+    margin-top:50px;
+
+    color:#FFF7D9;
+
+    font-family:"Cormorant Garamond",serif;
+
+    max-width:520px;
+
+    font-size:2.65rem;
+
+    line-height:1.1;
+
+    margin-top:12px;
+
+    margin-bottom:18px;
+
+    text-shadow:
+
+        0 0 18px rgba(255,220,120,.18);
+
+}
+
+#answerButtons{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:18px;
+
+    margin-top:12px;
+
+}
+
+/* =====================================================
+                    DIALOGUE CARDS
+===================================================== */
+
+.choice-card{
+
+    position:relative;
+
+    display:flex;
+
+    align-items:center;
+
+    gap:16px;
+
+    width:100%;
+
+    padding:14px 20px;
+
+    border:none;
+
+    border-radius:28px;
+
+    cursor:pointer;
+
+    background:
+        linear-gradient(
+            180deg,
+            #FFF9EF,
+            #F7E7CF
+        );
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,.22),
+        inset 0 1px 0 rgba(255,255,255,.9);
+
+    transition:
+        transform .35s,
+        box-shadow .35s,
+        filter .35s;
+
+    overflow:visible;
+
+}
+
+.choice-card::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-12px;
+
+    top:50%;
+
+    width:24px;
+
+    height:24px;
+
+    background:inherit;
+
+    transform:
+        translateY(-50%)
+        rotate(45deg);
+
+    border-bottom-left-radius:8px;
+
+}
+
+.choice-icon{
+
+    width:64px;
+
+    height:64px;
+
+    border-radius:50%;
+
+    background:white;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    flex-shrink:0;
+
+    font-size:2rem;
+
+    box-shadow:
+
+        inset 0 1px 0 white,
+
+        0 0 18px rgba(255,215,120,.45);
+
+}
+
+.choice-text{
+
+    text-align:left;
+
+}
+
+.choice-text h3{
+
+    color:#5B3815;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:1.75rem;
+
+    font-weight:600;
+
+}
+
+.choice-text p{
+
+    margin-top:4px;
+
+    color:#876444;
+
+    font-size:0.95rem;
+
+    font-family:"Cormorant Garamond",serif;
+
+}
+
+.choice-card:hover{
+
+    transform:
+        translateY(-4px)
+        scale(1.02);
+
+    box-shadow:
+
+        0 0 35px rgba(255,220,120,.45),
+
+        0 12px 35px rgba(0,0,0,.28);
+
+}
+
+.reaction-bubble{
+
+    position:absolute;
+
+    top:60px;
+
+    right:30px;
+
+    width:220px;
+
+    padding:18px;
+
+    border-radius:20px;
+
+    background:white;
+
+    color:#5A3510;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:1.35rem;
+
+    box-shadow:
+
+        0 15px 40px rgba(0,0,0,.25);
+
+    opacity:0;
+
+    transform:
+
+        translateY(15px)
+        scale(.95);
+
+    transition:.35s;
+
+}
+
+
+.reaction-bubble.show{
+
+    opacity:1;
+
+    transform:
+
+        translateY(0)
+        scale(1);
+
+}
+
+.reaction-bubble::before{
+
+    content:"";
+
+    position:absolute;
+
+    left:-12px;
+
+    top:50%;
+
+    width:24px;
+
+    height:24px;
+
+    background:white;
+
+    transform:
+
+        translateY(-50%)
+        rotate(45deg);
+
+}
+/* ==========================================
+        MAGIC STAR + PORTAL
+========================================== */
+
+#birthdayStar{
+
+    position:fixed;
+
+    left:50%;
+    top:68%;
+
+    transform:translate(-50%,0) scale(0);
+
+    font-size:72px;
+
+    opacity:0;
+
+    z-index:9998;
+
+    pointer-events:none;
+
+    filter:
+        drop-shadow(0 0 12px #FFE066)
+        drop-shadow(0 0 25px #FFD43B)
+        drop-shadow(0 0 45px #FFF7BF);
+
+}
+
+#portalGlow{
+
+    position:fixed;
+
+    left:50%;
+    top:45%;
+
+    width:80px;
+    height:80px;
+
+    border-radius:50%;
+
+    transform:
+        translate(-50%,-50%)
+        scale(0);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    z-index:9997;
+
+    background:radial-gradient(
+        circle,
+        rgba(255,255,255,1) 0%,
+        rgba(255,247,190,.95) 20%,
+        rgba(255,223,110,.75) 45%,
+        rgba(255,210,80,.30) 65%,
+        transparent 100%
+    );
+
+    filter:blur(6px);
+
+}
+
+.star-appear{
+
+    animation:starAppear .8s ease forwards;
+
+}
+
+.star-fly{
+
+    animation:starFly 2s ease forwards;
+
+}
+
+.portal-open{
+
+    animation:portalOpen 1.2s ease forwards;
+
+}
+
+@keyframes starAppear{
+
+    from{
+
+        opacity:0;
+
+        transform:
+            translate(-50%,30px)
+            scale(0);
+
+    }
+
+    to{
+
+        opacity:1;
+
+        transform:
+            translate(-50%,0)
+            scale(1);
+
+    }
+
+}
+
+@keyframes starFly{
+
+    from{
+
+        left:50%;
+        top:68%;
+
+    }
+
+    to{
+
+        left:50%;
+        top:45%;
+
+    }
+
+}
+
+@keyframes portalOpen{
+
+    0%{
+
+        opacity:0;
+
+        transform:
+            translate(-50%,-50%)
+            scale(0);
+
+    }
+
+    25%{
+
+        opacity:.45;
+
+        transform:
+            translate(-50%,-50%)
+            scale(2);
+
+    }
+
+    50%{
+
+        opacity:.8;
+
+        transform:
+            translate(-50%,-50%)
+            scale(7);
+
+    }
+
+    100%{
+
+        opacity:1;
+
+        transform:
+            translate(-50%,-50%)
+            scale(40);
+
+    }
+
+}
+
+#scene4{
+
+    position:fixed;
+    inset:0;
+
+    overflow:hidden;
+
+    background:#dbefff;
+
+    z-index:100;
+
+}
+
+/* ==========================================================
+                    BACKGROUND
+========================================================== */
+
+.birthday-bg{
+
+    position:absolute;
+    inset:0;
+
+    background:url("../assets/images/background/birthday_bg.png")
+    center/cover no-repeat;
+
+    z-index:0;
+
+}
+
+.birthday-overlay{
+
+    position:absolute;
+    inset:0;
+
+    background:linear-gradient(
+
+        rgba(255,255,255,.03),
+
+        rgba(255,255,255,.08)
+
+    );
+
+    z-index:1;
+
+}
+
+/* ==========================================================
+                    HEADER
+========================================================== */
+
+#birthdayHero{
+
+    position:absolute;
+
+    top:8px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    width:100%;
+
+    display:flex;
+
+    justify-content:center;
+
+    z-index:40;
+
+    pointer-events:none;
+
+}
+
+#birthdayText{
+
+    width:600px;
+
+    max-width:100vw;
+
+    height: 375px;
+
+    display:block;
+
+    opacity:1;
+
+    filter:
+
+        drop-shadow(0 10px 18px rgba(0,0,0,.16))
+
+        drop-shadow(0 0 28px rgba(255,220,120,.22));
+
+}
+
+/* ==========================================================
+                    HERO STAGE
+========================================================== */
+
+.celebration{
+
+    position:absolute;
+
+    left:50%;
+    top:175px;
+
+    transform:translateX(-50%);
+
+    width:700px;
+    height:460px;
+
+    z-index:20;
+
+}
+
+.hero-character{
+
+    position:relative;
+
+    width:700px;
+    height:460px;
+
+    margin:0 auto;
+
+}
+
+/* ==========================================================
+                    GLOW
+========================================================== */
+
+.panda-glow{
+
+    position:absolute;
+
+    left:50%;
+
+    top:70px;
+
+    transform:translateX(-50%);
+
+    width:300px;
+
+    height:300px;
+
+    border-radius:50%;
+
+    background:
+
+        radial-gradient(
+
+            circle,
+
+            rgba(255,255,255,.88),
+
+            rgba(255,226,145,.34),
+
+            transparent 72%
+
+        );
+
+    filter:blur(26px);
+
+    z-index:1;
+
+}
+
+/* ==========================================================
+                    PANDA
+========================================================== */
+.birthday-panda{
+
+    position:absolute;
+
+    width:430px;
+
+    left:45%;
+
+    bottom:70px;
+
+    transform:translateX(-50%);
+
+    z-index:6;
+
+    opacity:0;
+
+    filter:
+        drop-shadow(
+            0 35px 45px rgba(0,0,0,.28)
+        );
+
+}
+
+/* ==========================================================
+                    CAKE
+========================================================== */
+.birthday-cake{
+
+    position:absolute;
+
+    width:450px;
+
+    left:50%;
+
+    bottom:-10px;
+
+    transform:translateX(-175px);
+
+    z-index:9;
+
+    opacity:0;
+
+}
+
+/* ==========================================================
+                    GIFT
+========================================================== */
+
+.birthday-gift{
+
+    position:absolute;
+
+    width:180px;
+
+    left:15%;
+
+    bottom:85px;
+
+    height: 100px;
+
+    transform:translateX(145px);
+
+    z-index:9;
+
+    opacity:0;
+
+}
+
+#birthdayFooter{
+
+    position:absolute;
+
+    left:50%;
+
+    bottom:28px;
+
+    transform:translateX(-50%);
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:16px;
+
+    z-index:80;
+
+    color:#FFF6DE;
+
+    font-family:"Cormorant Garamond",serif;
+
+    font-size:34px;
+
+    font-weight:600;
+
+    letter-spacing:1px;
+
+    text-shadow:
+
+        0 3px 8px rgba(0,0,0,.35),
+
+        0 0 16px rgba(255,220,120,.55);
+
+}
+
+.footer-line{
+
+    width:120px;
+
+    height:2px;
+
+    border-radius:999px;
+
+    background:
+
+        linear-gradient(
+
+            to right,
+
+            transparent,
+
+            #FFD870,
+
+            transparent
+
+        );
+
+}
+
+.footer-heart{
+
+    font-size:32px;
+
+    animation:footerHeart 2s ease-in-out infinite;
+
+}
+
+.footer-name{
+
+    color:#FFD870;
+
+}
+/* ==========================================================
+                    CONFETTI
+========================================================== */
+
+#confettiCanvas{
+
+    position:absolute;
+
+    inset:0;
+
+    pointer-events:none;
+
+    z-index:60;
+
+}
+
+/* ==========================================
+                PANDA HALO
+========================================== */
+
+.panda-halo{
+
+    position:absolute;
+
+    left:50%;
+
+    top:48%;
+
+    transform:translate(-50%,-50%);
+
+    width:420px;
+
+    height:420px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+
+            circle,
+
+            rgba(255,255,255,.92) 0%,
+
+            rgba(255,235,170,.65) 28%,
+
+            rgba(255,220,120,.30) 55%,
+
+            rgba(255,220,120,.08) 72%,
+
+            transparent 86%
+
+        );
+
+    filter:blur(18px);
+
+    animation:haloPulse 4s ease-in-out infinite;
+
+    z-index:1;
+
+    pointer-events:none;
+
+}
+
+@keyframes haloPulse{
+
+    0%,100%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1);
+
+        opacity:.9;
+
+    }
+
+    50%{
+
+        transform:
+            translate(-50%,-50%)
+            scale(1.08);
+
+        opacity:1;
+
+    }
+
+}
+/* ==========================================
+                BALLOONS
+========================================== */
+
+.balloon{
+
+    width:180px;
+
+    position:absolute;
+
+    z-index:25;
+
+    pointer-events:none;
+
+    animation:balloonFloat 6s ease-in-out infinite;
+
+}
+
+.balloon-left{
+
+    top:50px;
+
+    left:25px;
+
+}
+
+.balloon-right{
+
+    top:50px;
+
+    right:25px;
+
+}
+
+/* ==========================================
+                SPARKLES
+========================================== */
+
+.sparkles{
+
+    position:absolute;
+
+    width:70px;
+
+    z-index:18;
+
+    pointer-events:none;
+
+    animation:sparkleFloat 4s ease-in-out infinite;
+
+    filter:
+
+        drop-shadow(0 0 12px rgba(255,230,120,.55));
+
+}
+
+.sparkle1{
+
+    top:140px;
+
+    left:28%;
+
+}
+
+.sparkle2{
+
+    top:250px;
+
+    right:25%;
+
+    animation-delay:1s;
+
+}
+
+.sparkle3{
+
+    top:520px;
+
+    left:32%;
+
+    animation-delay:2s;
+
+}
+
+.sparkle4{
+
+    top:500px;
+
+    right:30%;
+
+    animation-delay:3s;
+
+}

@@ -15,19 +15,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     createFireflies();
 
-   /* showIntroText();
+    showIntroText();
 
     const button = document.getElementById("startButton");
 
-    button.addEventListener("click", transitionToScene2); */
-
-    document.getElementById("scene1").classList.add("hidden");
-
-    const scene2 = document.getElementById("scene2");
-    scene2.classList.remove("hidden");
-    scene2.style.opacity = "1";
-
-    startPandaIntro();
+    button.addEventListener("click", transitionToScene2); 
 
 });
 
@@ -672,3 +664,746 @@ function showFriendButton() {
 
 }
 
+async function transitionToScene3(){
+
+    const scene2 = document.getElementById("scene2");
+    const scene3 = document.getElementById("scene3");
+
+    const magic = document.getElementById("magicTransition");
+
+    // Magical glow appears
+    magic.classList.add("magic-in");
+
+    await wait(800);
+
+    scene2.classList.add("hidden");
+
+    scene3.classList.remove("hidden");
+
+    loadQuestion(0);
+
+    magic.classList.remove("magic-in");
+    magic.classList.add("magic-out");
+
+    await wait(800);
+
+    magic.classList.remove("magic-out");
+
+}
+
+const friendButton = document.getElementById("friendButton");
+
+friendButton.addEventListener("click", async () => {
+
+    await transitionToScene3();
+
+});
+
+const friendshipQuestions = [
+
+{
+    question:"If I ever felt sad...<br>what would you do?",
+
+    reaction:"Aww... you're such a wonderful friend. 💛",
+
+    panda:"happy",
+
+    answers:[
+
+        {
+            emoji:"❤️",
+            title:"I'd cheer you up.",
+            subtitle:"I'll make you smile again!"
+        },
+
+        {
+            emoji:"🤗",
+            title:"I'd give you a hug.",
+            subtitle:"A warm hug for you!"
+        },
+
+        {
+            emoji:"🍰",
+            title:"I'd share my cake.",
+            subtitle:"The sweetest things are for you!"
+        },
+
+        {
+            emoji:"✨",
+            title:"I'd stay beside you.",
+            subtitle:"I'll always be here for you!"
+        }
+
+    ]
+},
+
+{
+    question:"Can I always cheer you on<br>when things get difficult?",
+
+    reaction:"Hehe... that's what best friends are for! 🌟",
+
+    panda:"happy",
+
+    answers:[
+
+        {
+            emoji:"💛",
+            title:"Always!",
+            subtitle:"I'll always support you."
+        },
+
+        {
+            emoji:"🌸",
+            title:"Without a doubt.",
+            subtitle:"You'll never be alone."
+        },
+
+        {
+            emoji:"🤝",
+            title:"We'll do it together.",
+            subtitle:"Teamwork!"
+        },
+
+        {
+            emoji:"⭐",
+            title:"Every single time.",
+            subtitle:"I'm cheering for you!"
+        }
+
+    ]
+},
+
+{
+    question:"Will you save a tiny slice<br>of birthday cake for me?",
+
+    reaction:"Yay!! I promise I won't eat the whole cake first! 🍰",
+
+    panda:"happy",
+
+    answers:[
+
+        {
+            emoji:"🍰",
+            title:"Of course!",
+            subtitle:"Cake is better shared."
+        },
+
+        {
+            emoji:"🎂",
+            title:"The biggest slice!",
+            subtitle:"Just for you."
+        },
+
+        {
+            emoji:"💖",
+            title:"We'll eat together.",
+            subtitle:"That's more fun."
+        },
+
+        {
+            emoji:"🥳",
+            title:"Absolutely!",
+            subtitle:"Birthday promise."
+        }
+
+    ]
+},
+
+{
+    question:"Will this adventure stay<br>in your memories?",
+
+    reaction:"That makes my little panda heart so happy. 🐼",
+
+    panda:"happy",
+
+    answers:[
+
+        {
+            emoji:"🌙",
+            title:"Forever.",
+            subtitle:"A magical memory."
+        },
+
+        {
+            emoji:"✨",
+            title:"Always.",
+            subtitle:"I'll never forget."
+        },
+
+        {
+            emoji:"📖",
+            title:"Like a storybook.",
+            subtitle:"A beautiful chapter."
+        },
+
+        {
+            emoji:"💛",
+            title:"Absolutely.",
+            subtitle:"I'll treasure it."
+        }
+
+    ]
+},
+
+{
+    question:"One last promise...<br>Will we always be friends?",
+
+    reaction:"YAY!! You're officially my Best Friend! 🐼💛",
+
+    panda:"happy",
+
+    answers:[
+
+        {
+            emoji:"💛",
+            title:"Always.",
+            subtitle:"Forever friends."
+        },
+
+        {
+            emoji:"🌸",
+            title:"Forever.",
+            subtitle:"No matter what."
+        },
+
+        {
+            emoji:"🤝",
+            title:"Pinky Promise.",
+            subtitle:"It's a deal."
+        },
+
+        {
+            emoji:"✨",
+            title:"No Matter What.",
+            subtitle:"Best friends forever."
+        }
+
+    ]
+}
+
+];
+
+let currentQuestion = 0;
+
+const friendshipPanda =
+    document.getElementById("friendshipPanda");
+
+function loadQuestion(index){
+
+    const question = friendshipQuestions[index];
+
+    document.getElementById("questionText").innerHTML =
+        question.question;
+
+    const container =
+        document.getElementById("answerButtons");
+
+    container.innerHTML = "";
+
+    question.answers.forEach(answer => {
+
+    const card = document.createElement("button");
+
+    card.className = "choice-card";
+
+    card.innerHTML = `
+
+        <div class="choice-icon">
+
+            ${answer.emoji}
+
+        </div>
+
+        <div class="choice-text">
+
+            <h3>${answer.title}</h3>
+
+            <p>${answer.subtitle}</p>
+
+        </div>
+
+    `;
+
+    card.addEventListener("click", handleAnswer);
+
+    container.appendChild(card);
+
+});
+
+}
+
+const bubble =
+    document.getElementById("reactionBubble");
+
+const bubbleText =
+    document.getElementById("reactionText");
+
+async function handleAnswer(){
+
+    document.querySelectorAll(".choice-card").forEach(card=>{
+        card.disabled = true;
+    });
+
+    const question = friendshipQuestions[currentQuestion];
+
+    friendshipPanda.src =
+        "assets/images/panda/happy.png";
+
+    bubbleText.textContent =
+        question.reaction;
+
+    bubble.classList.remove("hidden");
+
+    requestAnimationFrame(()=>{
+        bubble.classList.add("show");
+    });
+
+    await wait(2800);
+
+    // ---------- LAST QUESTION ----------
+    if(currentQuestion === friendshipQuestions.length - 1){
+
+        bubble.classList.remove("show");
+
+        await wait(350);
+
+        bubbleText.textContent =
+            "But... I have one last surprise waiting for you... ✨";
+
+        bubble.classList.remove("hidden");
+
+        requestAnimationFrame(()=>{
+            bubble.classList.add("show");
+        });
+
+        await wait(2600);
+
+        bubble.classList.remove("show");
+
+        await wait(400);
+
+        bubble.classList.add("hidden");
+
+        friendshipPanda.src =
+            "assets/images/panda/thinking.png";
+
+        await startBirthdayTransition();
+
+        return;
+    }
+
+    bubble.classList.remove("show");
+
+    await wait(350);
+
+    bubble.classList.add("hidden");
+
+    friendshipPanda.src =
+        "assets/images/panda/thinking.png";
+
+    await wait(250);
+
+    currentQuestion++;
+
+    loadQuestion(currentQuestion);
+
+}
+
+async function startBirthdayTransition(){
+
+    const star=document.getElementById("birthdayStar");
+    const portal=document.getElementById("portalGlow");
+    const glow=document.getElementById("magicTransition");
+
+    star.className="";
+    portal.className="";
+    glow.className="";
+
+    star.style.opacity="1";
+    portal.style.opacity="0";
+
+    // Star appears
+
+    star.classList.add("star-appear");
+
+    await wait(900);
+
+    // Fly
+
+    star.className="";
+    void star.offsetWidth;
+    star.classList.add("star-fly");
+
+    await wait(1700);
+
+    // Portal
+
+    portal.classList.add("portal-open");
+
+    await wait(400);
+
+    // Fade star
+
+    star.animate(
+    [
+        {
+            opacity:1,
+            transform:"translate(-50%,0) scale(1.2)"
+        },
+        {
+            opacity:0,
+            transform:"translate(-50%,0) scale(.5)"
+        }
+    ],
+    {
+        duration:600,
+        fill:"forwards",
+        easing:"ease-out"
+    });
+
+    await wait(450);
+
+    // Screen glow
+
+    glow.classList.add("magic-in");
+
+    await wait(800);
+
+    // Show birthday scene
+
+    await showScene4();
+
+}
+
+/* ==========================================
+            SHOW SCENE 4
+========================================== */
+
+/* ==========================================
+            SHOW SCENE 4
+========================================== */
+
+async function showScene4(){
+
+    /* ============================
+            Scene Switch
+    ============================ */
+
+    document
+        .getElementById("scene3")
+        .classList.add("hidden");
+
+    document
+        .getElementById("scene4")
+        .classList.remove("hidden");
+
+    /* ============================
+            Hide Portal
+    ============================ */
+
+    document
+        .getElementById("birthdayStar")
+        .style.display="none";
+
+    document
+        .getElementById("portalGlow")
+        .style.display="none";
+
+    const glow=
+        document.getElementById("magicTransition");
+
+    glow.style.transition=
+        "opacity 1.2s ease";
+
+    glow.style.opacity="0";
+
+    await wait(1200);
+
+    glow.style.display="none";
+
+    /* ============================
+            Elements
+    ============================ */
+
+    const panda=
+        document.getElementById("birthdayPanda");
+
+    const cake=
+        document.getElementById("birthdayCake");
+
+    const gift=
+        document.getElementById("giftBox");
+
+    const card=
+        document.getElementById("birthdayCard");
+
+    const footer=
+        document.getElementById("birthdayFooter");
+
+    /* ===================================================
+                HAPPY BIRTHDAY
+    =================================================== */
+
+    const birthdayText =
+    document.getElementById("birthdayText");
+
+birthdayText.animate(
+
+[
+    {
+
+        opacity:0,
+
+        transform:
+            "translateY(-45px) scale(.88)"
+
+    },
+
+    {
+
+        opacity:1,
+
+        transform:
+            "translateY(0) scale(1.04)"
+
+    },
+
+    {
+
+        opacity:1,
+
+        transform:
+            "translateY(0) scale(1)"
+
+    }
+
+],
+
+{
+
+    duration:1200,
+
+    easing:"cubic-bezier(.2,.9,.2,1)",
+
+    fill:"forwards"
+
+}
+
+);
+
+await wait(900);
+
+    /* ===================================================
+                    PANDA
+    =================================================== */
+
+    panda.animate(
+
+        [
+
+            {
+
+                opacity:0,
+
+                transform:
+                    "translateX(-35%) scale(.35)"
+
+            },
+
+            {
+
+                opacity:1,
+
+                transform:
+                    "translateX(-50%) scale(1.08)"
+
+            },
+
+            {
+
+                opacity:1,
+
+                transform:
+                    "translateX(-50%) scale(1)"
+
+            }
+
+        ],
+
+        {
+
+            duration:900,
+
+            easing:"ease-out",
+
+            fill:"forwards"
+
+        }
+
+    );
+
+    await wait(350);
+
+    /* ===================================================
+                    CAKE
+    =================================================== */
+
+    cake.animate(
+
+        [
+
+            {
+
+                opacity:0,
+
+                transform:
+                    "translateX(-50%) translateY(80px)"
+
+            },
+
+            {
+
+                opacity:1,
+
+                transform:
+                    "translateX(-50%) translateY(0)"
+
+            }
+
+        ],
+
+        {
+
+            duration:800,
+
+            easing:"ease-out",
+
+            fill:"forwards"
+
+        }
+
+    );
+
+    await wait(220);
+
+    /* ===================================================
+                    GIFT
+    =================================================== */
+
+    gift.animate(
+
+        [
+
+            {
+
+                opacity:0,
+
+                transform:
+                    "translateY(45px) scale(.6)"
+
+            },
+
+            {
+
+                opacity:1,
+
+                transform:
+                    "translateY(0) scale(1)"
+
+            }
+
+        ],
+
+        {
+
+            duration:700,
+
+            easing:"ease-out",
+
+            fill:"forwards"
+
+        }
+
+    );
+
+    gift.animate(
+
+        [
+
+            {
+
+                transform:"translateY(0)"
+
+            },
+
+            {
+
+                transform:"translateY(-10px)"
+
+            },
+
+            {
+
+                transform:"translateY(0)"
+
+            }
+
+        ]
+    );
+
+    await wait(600);
+
+    /* ===================================================
+                    FOOTER
+    =================================================== */
+
+    footer.animate(
+
+        [
+
+            {
+
+                opacity:0
+
+            },
+
+            {
+
+                opacity:.85
+
+            }
+
+        ],
+
+        {
+
+            duration:900,
+
+            fill:"forwards"
+
+        }
+
+    );
+
+
+    /* ===================================================
+                    CONFETTI
+    =================================================== */
+
+    //startConfetti();
+
+}
+
+
+
+const DEV_MODE = false;
+
+if (DEV_MODE) {
+
+    document.getElementById("scene1").classList.add("hidden");
+    document.getElementById("scene2").classList.add("hidden");
+    document.getElementById("scene3").classList.add("hidden");
+
+    showScene4();
+
+}
